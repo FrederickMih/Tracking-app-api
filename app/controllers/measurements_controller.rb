@@ -1,10 +1,9 @@
-module Api::V1
-  class MeasurementsController < ApplicationController
+class MeasurementsController < ApplicationController
     before_action :set_measurement, only: [:show, :update, :destroy]
 
     # GET /measurements
     def index
-      @measurements = Measurement.all
+      @measurements = Measurement.all.order(created_at: :DESC)
 
       render json: @measurements
     end
@@ -50,4 +49,4 @@ module Api::V1
         params.require(:measurement).permit(:name, :image_url)
       end
   end
-end
+
