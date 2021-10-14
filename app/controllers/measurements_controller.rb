@@ -1,5 +1,4 @@
-module Api
-  module V1
+
     class MeasurementsController < ApplicationController 
       before_action :set_measurement, only: [:show, :update, :destroy]
 
@@ -51,5 +50,3 @@ module Api
           params.require(:measurement).permit(:name, :image_url)
         end
     end
-  end
-end
