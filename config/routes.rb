@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
-  # resources :measures
-  resources :measurements
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  namespace :api do
+    namespace :v1 do  
+      resources :measurements
+      get 'measurements/:id' => 'measurements#show'
+    end
+  end
 end
