@@ -1,52 +1,38 @@
 
     class MeasurementsController < ApplicationController 
-      before_action :set_measurement, only: [:show, :update, :destroy]
 
       # GET /measurements
       def index
-        @measurements = Measurement.all.order(created_at: :DESC)
+        @measurements = Measurement.all
 
-        render json: @measurements
+        render json: @measurements.to_json
       end
 
-      # GET /measurements/1
       def show
-        render json: @measurement
+        @measurement = Measurement.find(params[:id])
+        @measures = Measure.where(measurement: @measurement)
+
+        render json: @measurement.to_json(include: { measures: { only: %i[value created_at] } })
       end
 
-      # POST /measurements
       def create
-        @measurement = Measurement.new(measurement_params)
-        
-        if @measurement.save
-          render json: @measurement, status: :created, location: @measurement
-        else
-          render json: @measurement.errors, status: :unprocessable_entity
-        end
-      end
+        measurement = Measurement.find(measurement_params['id'])
+        measure = Measure.new(measure_params.merge(measurement_id: measurement.id))
 
-      # PATCH/PUT /measurements/1
-      def update
-        if @measurement.update(measurement_params)
-          render json: @measurement
+        if measure.save
+          render json: measure.as_json, status: :created
         else
-          render json: @measurement.errors, status: :unprocessable_entity
+          render json: measure.errors, status: :unprocessable_entity
         end
-      end
-
-      # DELETE /measurements/1
-      def destroy
-        @measurement.destroy
       end
 
       private
-        # Use callbacks to share common setup or constraints between actions.
-        def set_measurement
-          @measurement = Measurement.find(params[:id])
-        end
 
-        # Only allow a list of trusted parameters through.
-        def measurement_params
-          params.require(:measurement).permit(:name, :image_url)
-        end
+      def measurement_params
+        params.require(:measurement).permit(:id)
+      end
+
+      def measure_params
+        params.require(:measure).permit(:value)
+      end
     end
