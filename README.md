@@ -20,7 +20,7 @@ Here is the front-end repository ([API Repo](https://github.com/FrederickMih/Tra
 
 ## Live Demo
 
-[Try it out here]()
+[Try it out here](https://guarded-sands-43543.herokuapp.com/)
 
 ## Set up this project locally
 
