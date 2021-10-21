@@ -10,4 +10,15 @@ RSpec.describe 'Measurements', type: :request do
     end
   end
 
+   describe 'GET /measurements/:id' do
+    measurement = Measurement.last
+    it 'should return single measurement data' do
+      get "/measurements/#{measurement.id}"
+
+      expect(response).to have_http_status(:success)
+      expect(JSON.parse(response.body)).to include('name' => 'Left-bicep', 'image_url' => 'Left-bicep-photo',
+                                                   'measures' => [])
+    end
+  end
+
 end
