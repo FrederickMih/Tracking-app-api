@@ -1,38 +1,36 @@
+class MeasurementsController < ApplicationController
+  # GET /measurements
+  def index
+    @measurements = Measurement.all
 
-    class MeasurementsController < ApplicationController 
+    render json: @measurements.to_json
+  end
 
-      # GET /measurements
-      def index
-        @measurements = Measurement.all
+  def show
+    @measurement = Measurement.find(params[:id])
+    @measures = Measure.where(measurement: @measurement)
 
-        render json: @measurements.to_json
-      end
+    render json: @measurement.to_json(include: { measures: { only: %i[value created_at] } })
+  end
 
-      def show
-        @measurement = Measurement.find(params[:id])
-        @measures = Measure.where(measurement: @measurement)
+  def create
+    measurement = Measurement.find(measurement_params['id'])
+    measure = Measure.new(measure_params.merge(measurement_id: measurement.id))
 
-        render json: @measurement.to_json(include: { measures: { only: %i[value created_at] } })
-      end
-
-      def create
-        measurement = Measurement.find(measurement_params['id'])
-        measure = Measure.new(measure_params.merge(measurement_id: measurement.id))
-
-        if measure.save
-          render json: measure.as_json, status: :created
-        else
-          render json: measure.errors, status: :unprocessable_entity
-        end
-      end
-
-      private
-
-      def measurement_params
-        params.require(:measurement).permit(:id)
-      end
-
-      def measure_params
-        params.require(:measure).permit(:value)
-      end
+    if measure.save
+      render json: measure.as_json, status: :created
+    else
+      render json: measure.errors, status: :unprocessable_entity
     end
+  end
+
+  private
+
+  def measurement_params
+    params.require(:measurement).permit(:id)
+  end
+
+  def measure_params
+    params.require(:measure).permit(:value)
+  end
+end
