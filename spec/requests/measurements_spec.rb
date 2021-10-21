@@ -10,7 +10,7 @@ RSpec.describe 'Measurements', type: :request do
     end
   end
 
-   describe 'GET /measurements/:id' do
+  describe 'GET /measurements/:id' do
     measurement = Measurement.last
     it 'should return single measurement data' do
       get "/measurements/#{measurement.id}"
@@ -20,5 +20,4 @@ RSpec.describe 'Measurements', type: :request do
                                                    'measures' => [])
     end
   end
-
 end
