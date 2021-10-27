@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_27_211353) do
+ActiveRecord::Schema.define(version: 2021_10_27_215031) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,8 +20,10 @@ ActiveRecord::Schema.define(version: 2021_10_27_211353) do
     t.string "image_url"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "user_id"
     t.index ["image_url"], name: "index_measurements_on_image_url"
     t.index ["name"], name: "index_measurements_on_name"
+    t.index ["user_id"], name: "index_measurements_on_user_id"
   end
 
   create_table "measures", force: :cascade do |t|
@@ -43,5 +45,6 @@ ActiveRecord::Schema.define(version: 2021_10_27_211353) do
     t.index ["username"], name: "index_users_on_username"
   end
 
+  add_foreign_key "measurements", "users"
   add_foreign_key "measures", "measurements"
 end
