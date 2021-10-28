@@ -1,6 +1,4 @@
-module Api
-  module V1
-    class MeasurementsController < ApplicationController
+ class MeasurementsController < ApplicationController
       # GET /measurements
       def index
         @measurements = Measurement.all
@@ -36,5 +34,4 @@ module Api
         params.require(:measure).permit(:value)
       end
     end
-  end
-end
+ 

@@ -1,6 +1,4 @@
-module Api
-  module V1
-    class UsersController < ApplicationController
+class UsersController < ApplicationController
       before_action :set_user, only: %i[show user_favourites update destroy]
       before_action :authenticate_user, except: [:create]
       # GET /users
@@ -60,5 +58,3 @@ module Api
         @user = User.find(params[:id])
       end
     end
-  end
-end
