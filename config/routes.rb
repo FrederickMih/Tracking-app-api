@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
-      resources :users, only: [:create, :index]
+      post 'auth/login', to: 'authentication#create'
+      post 'signup', to: 'users#create'
       resources :measurements, only: [:index, :create]
       get 'measurements/:id' => 'measurements#show'
-      resources :measures 
+      resources :measures, only: [:create, :update, :show] 
     end
  
