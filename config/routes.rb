@@ -3,6 +3,6 @@ Rails.application.routes.draw do
       post 'signup', to: 'users#create'
       resources :measurements, only: [:index, :create]
       get 'measurements/:id' => 'measurements#show'
-      resources :measures
+      resources :measures, only: [:create, :update, :show] 
     end
  
