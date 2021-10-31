@@ -1,37 +1,51 @@
- class MeasurementsController < ApplicationController
-      # GET /measurements
-      def index
-        @measurements = Measurement.all
+class MeasurementsController < ApplicationController
+  before_action :set_measurement, only: %i[show update destroy]
+  before_action :check_role, except: %i[index show]
 
-        render json: @measurements.to_json
-      end
+  # GET /measurements
+  def index
+    @measurements = Measurement.all
 
-      def show
-        @measurement = Measurement.find(params[:id])
-        @measures = Measure.where(measurement: @measurement)
+    json_response(@measurements)
+  end
 
-        render json: @measurement.to_json(include: { measures: { only: %i[value created_at] } })
-      end
+  # POST /measurements
+  def create
+    @measurement = measurement.create!(measurement_params)
+    json_response(@measurement, :created)
+  end
 
-      def create
-        measurement = Measurement.find(measurement_params['id'])
-        measure = Measure.new(measure_params.merge(measurement_id: measurement.id))
+  # GET /measurements/:id
+  def show
+    json_response(@measurement)
+  end
 
-        if measure.save
-          render json: measure.as_json, status: :created
-        else
-          render json: measure.errors, status: :unprocessable_entity
-        end
-      end
+  # PUT /measurements/:id
+  def update
+    @measurement.update(measurement_params)
+    json_response(@measurement, :ok)
+  end
 
-      private
+  # DELETE /measurements/:id
+  def destroy
+    @measurement.destroy
+    json_response({ id: @measurement.id }, :ok)
+  end
 
-      def measurement_params
-        params.require(:measurement).permit(:id)
-      end
+  private
 
-      def measure_params
-        params.require(:measure).permit(:value)
-      end
-    end
- 
+  def measurement_params
+    params.permit(
+      :name,
+      :image_url
+    )
+  end
+
+  def set_measurement
+    @measurement = measurement.find(params[:id])
+  end
+
+  def check_role
+    raise(ExceptionHandler::AuthenticationError, Message.unauthorized) unless current_user.role == 'admin'
+  end
+end
