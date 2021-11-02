@@ -4,46 +4,38 @@ class MeasurementsController < ApplicationController
 
   # GET /measurements
   def index
-    @measurements = Measurement.all
+        @measurements = Measurement.all
 
-    json_response(@measurements)
-  end
+        render json: @measurements.to_json
+      end
 
-  # POST /measurements
-  def create
-    @measurement = measurement.create!(measurement_params)
-    json_response(@measurement, :created)
-  end
+      def show
+        @measurement = Measurement.find(params[:id])
+        @measures = Measure.where(measurement: @measurement)
 
-  # GET /measurements/:id
-  def show
-    json_response(@measurement)
-  end
+        render json: @measurement.to_json(include: { measures: { only: %i[value created_at] } })
+      end
 
-  # PUT /measurements/:id
-  def update
-    @measurement.update(measurement_params)
-    json_response(@measurement, :ok)
-  end
+      def create
+        measurement = Measurement.find(measurement_params['id'])
+        measure = Measure.new(measure_params.merge(measurement_id: measurement.id))
 
-  # DELETE /measurements/:id
-  def destroy
-    @measurement.destroy
-    json_response({ id: @measurement.id }, :ok)
-  end
+        if measure.save
+          render json: measure.as_json, status: :created
+        else
+          render json: measure.errors, status: :unprocessable_entity
+        end
+      end
 
-  private
+      private
 
-  def measurement_params
-    params.permit(
-      :name,
-      :image_url
-    )
-  end
+      def measurement_params
+        params.require(:measurement).permit(:id)
+      end
 
-  def set_measurement
-    @measurement = measurement.find(params[:id])
-  end
+      def measure_params
+        params.require(:measure).permit(:value)
+      end
 
   def check_role
     raise(ExceptionHandler::AuthenticationError, Message.unauthorized) unless current_user.role == 'admin'
