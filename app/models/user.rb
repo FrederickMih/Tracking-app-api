@@ -1,12 +1,12 @@
 class User < ApplicationRecord
-  has_many :measurements, foreign_key: :user_id, dependent: :destroy
+  has_many :measures, dependent: :destroy
   
-  validates_presence_of :username, :email
-  validates_uniqueness_of :email, :username
+  validates :username, presence: true, uniqueness: { case_sensitive: false }, length: { in: 4..8 }
+  validates :email, presence: true
+  validates :password, presence: true
+  validates :password_confirmation, presence: true
   
   
   has_secure_password
-
-  # validates_presence_of :password
 
 end

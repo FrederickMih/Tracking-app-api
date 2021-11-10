@@ -1,21 +1,32 @@
 class MeasuresController < ApplicationController
-  # GET /measures
+  include CurrentUserConcern
+
   def index
-    @measures = current_user.measures.all.order(created_at: :DESC)
-    json_response(@measures)
+    if @current_user
+      all = @current_user.measures.newest_first.group_by_date
+      progress = {
+        sum_value: @current_user.measures.sum_value,
+        items: @current_user.measures.group_by_measurement
+      }
+      render json: { all: all, progress: progress, status: :ok }
+    else
+      render json: { status: 401 }
+    end
   end
 
-  # POST /measures
   def create
-    @measures = current_user.measures.create!(measure_params[:measures])
-    json_response(@measures, :created)
+    measure = @current_user.measures.build(measure_params)
+    measure.user_id = @current_user.id
+    if measures.save
+      render json: { measure: measure, status: :ok }
+    else
+      render json: { status: 'Invalid data' }, status: 400
+    end
   end
 
   private
 
   def measure_params
-    params.permit(
-      measures: %i[measurement_id value created_at]
-    )
+    params.permit(:measurement_id, :value)
   end
 end
