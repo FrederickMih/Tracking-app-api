@@ -1,3 +1,3 @@
 class Measurement < ApplicationRecord
-    has_many: measures
+  has_many :measures
 end
