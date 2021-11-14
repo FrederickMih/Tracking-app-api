@@ -1,6 +1,6 @@
 class Measure < ApplicationRecord
   belongs_to :user
-  belongs_to :Measurement
+  belongs_to :measurement
 
   validates :data, presence: true
 
