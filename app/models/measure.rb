@@ -6,8 +6,8 @@ class Measure < ApplicationRecord
 
   scope :newest_first, -> { order('created_at DESC') }
   scope :group_by_date, -> { group_by { |items| items.created_at.to_date } }
-  scope :group_by_product, -> { group_by { |items| items.measurement.measurement_name } }
+  scope :group_by_measurement, -> { group_by { |items| items.measurement.measurement_name } }
 
-  scope :measures, -> { deals.includes(:measurement) }
+  scope :measures, -> { measures.includes(:measurement) }
   scope :sum_data, -> { sum(:data) }
 end
