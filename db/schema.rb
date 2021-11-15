@@ -23,14 +23,12 @@ ActiveRecord::Schema.define(version: 2021_11_10_061258) do
   end
 
   create_table "measures", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "measurement_id"
     t.float "data"
-    t.bigint "measurement_id", null: false
-    t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["data"], name: "index_measures_on_data"
-    t.index ["measurement_id"], name: "index_measures_on_measurement_id"
-    t.index ["user_id"], name: "index_measures_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -41,6 +39,4 @@ ActiveRecord::Schema.define(version: 2021_11_10_061258) do
     t.index ["username"], name: "index_users_on_username"
   end
 
-  add_foreign_key "measures", "measurements"
-  add_foreign_key "measures", "users"
 end
