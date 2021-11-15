@@ -5,3 +5,11 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+
+Measurement.create(measurement_name: 'Left Bicep')
+Measurement.create(measurement_name: 'Right Bicep')
+Measurement.create(measurement_name: 'Waist')
+Measurement.create(measurement_name: 'Hips')
+Measurement.create(measurement_name: 'Left Thigh')
+Measurement.create(measurement_name: 'Right Thigh')
