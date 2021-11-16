@@ -5,7 +5,7 @@ class MeasuresController < ApplicationController
     if @current_user
       all = @current_user.measures.newest_first.group_by_date
       progress = {
-        sum_value: @current_user.measures.sum_value,
+        sum_data: @current_user.measures.sum_data,
         items: @current_user.measures.group_by_measurement
       }
       render json: { all: all, progress: progress, status: :ok }
@@ -27,6 +27,6 @@ class MeasuresController < ApplicationController
   private
 
   def measure_params
-    params.permit(:measurement_id, :value)
+    params.permit(:measurement_id, :data)
   end
 end
