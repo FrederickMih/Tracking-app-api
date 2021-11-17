@@ -17,7 +17,7 @@ class MeasuresController < ApplicationController
   def create
     measure = @current_user.measures.build(measure_params)
     measure.user_id = @current_user.id
-    if measures.save
+    if measure.save
       render json: { measure: measure, status: :ok }
     else
       render json: { status: 'Invalid data' }, status: 400
