@@ -6,6 +6,7 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+Measurement. destroy_all
 
 Measurement.create(measurement_name: 'Left Bicep')
 Measurement.create(measurement_name: 'Right Bicep')
