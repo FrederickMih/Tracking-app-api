@@ -30,3 +30,4 @@ class MeasuresController < ApplicationController
     params.permit(:measurement_id, :data)
   end
 end
+
