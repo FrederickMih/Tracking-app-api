@@ -48,7 +48,7 @@ Base URL returns brief introduction about the API:
 
 > fred-body-track-app-backend.herokuapp.com
 
-# New user Registration
+# New user Registration or Sign up
 
 Post Request:
 
