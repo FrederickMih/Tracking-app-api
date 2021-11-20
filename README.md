@@ -7,7 +7,7 @@ Here is the front-end repository ([API Repo](https://github.com/FrederickMih/Tra
 
 ## URL
 
-[Base URL:](https://fred-tracking-app.herokuapp.com/)
+[Base URL:](fred-body-track-app-backend.herokuapp.com)
 
 ### Built with
 
@@ -46,7 +46,7 @@ Here is the front-end repository ([API Repo](https://github.com/FrederickMih/Tra
 
 Base URL returns brief introduction about the API:
 
-> https://fred-tracking-app.herokuapp.com
+> fred-body-track-app-backend.herokuapp.com
 
 # New user Registration
 
@@ -218,7 +218,7 @@ Example:
       {
         user_id: 1,
         measurement_id: 3,
-        data: 20,
+        data: 12,
         ...
       },
           ...
@@ -266,7 +266,7 @@ POST: /measurements/1/measures
 
 {
     "measurement_id": 1,
-    "data": 7700,
+    "data": 12,
 }
 ```
 
