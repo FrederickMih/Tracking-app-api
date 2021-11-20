@@ -23,7 +23,6 @@ Here is the front-end repository ([API Repo](https://github.com/FrederickMih/Tra
 - Run `https://github.com/FrederickMih/Tracking-app-api` to clone the project;
 - Switch to the main directory of project using cd;
 - Run `bundle install` in your terminal to install all dependencies.
-- Run `rails server` to open up a live server
 - Append one of the endpoints to http://localhost:3000/ in order to get/post data
 
 ## Setup database with:
@@ -31,6 +30,7 @@ Here is the front-end repository ([API Repo](https://github.com/FrederickMih/Tra
 - `rails db:setup`
 - `rails db:migrate`
 - `rails db:seed`
+- `rails server`
 
 ## Author
 
@@ -40,8 +40,6 @@ Here is the front-end repository ([API Repo](https://github.com/FrederickMih/Tra
 [![](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/frederick-mih/)
 [![](https://img.shields.io/badge/Twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white)](https://twitter.com/MihFrederick)
 
-
-
 ## API Reference
 
 ### About
@@ -50,15 +48,14 @@ Base URL returns brief introduction about the API:
 
 > https://fred-tracking-app.herokuapp.com
 
-
-#  New user Registration / Sign Up
+# New user Registration
 
 Post Request:
 
 > /registrations
 
 Provide the user data
- 
+
 ```bigquery
 {
    user: {
@@ -70,6 +67,7 @@ Provide the user data
 ```
 
 Example:
+
 ```bigquery
 POST: /registrations
 
@@ -90,13 +88,14 @@ Response:
 }
 ```
 
-# Existing user Login / Sign In
+# Existing user Login
 
 Post Request:
 
 > /sessions
 
 Send the user credentials
+
 ```bigquery
 {
    user: {
@@ -127,9 +126,10 @@ Response:
 }
 ```
 
-# Current user logout / sign out
+# Current user logout
 
 Delete request
+
 > /sessions
 
 Example:
@@ -145,7 +145,6 @@ Response:
 }
 
 ```
-
 
 # To get all the measurements available
 
@@ -171,13 +170,14 @@ Get: /measurements
             "measurement_name": "Right-Biceps",
             "created_at": "2021-11-18T09:51:09.501Z",
             "updated_at": "2021-11-18T09:51:09.501Z"
-        },    
+        },
     ],
     "status": "ok"
 }
 ```
 
 # To get the specific measurement
+
 Get Request
 
 > /measurements/:id
@@ -199,7 +199,8 @@ GET: /measurements/2
 }
 ```
 
-# To get all the measures associated with current user 
+# To get all the measures associated with current user
+
 #### User is required to be sign in
 
 Get Request:
@@ -209,6 +210,7 @@ Get Request:
 It returns all the measures date-wise and measurements wise
 
 Example:
+
 ```bigquery
 {
   all: {
@@ -249,6 +251,7 @@ Post Request
 > /measurements/:measurement_id/measures
 
 Provide the measure data
+
 ```bigquery
 {
     measurement_id: <measurement_id>,
@@ -257,6 +260,7 @@ Provide the measure data
 ```
 
 Example
+
 ```bigquery
 POST: /measurements/1/measures
 
@@ -265,7 +269,6 @@ POST: /measurements/1/measures
     "data": 7700,
 }
 ```
-
 
 ## Testing
 
@@ -276,7 +279,9 @@ In order to run the tests, RSPEC should be installed.
 ```bash
 gem install rspec
 ```
+
 Run from terminal
+
 ```bash
 rspec
 ```
@@ -300,14 +305,3 @@ Give a ⭐️ if you like this project!
 ## License
 
 MIT License
-
-
-
-
-
-
-
-
-
-
-

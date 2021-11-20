@@ -1,5 +1,5 @@
-FactoryBot.define do 
-    factory :measurement do 
-        measurement_name { Faker::Name.unique.name }
-    end
+FactoryBot.define do
+  factory :measurement do
+    measurement_name { Faker::Name.unique.name }
+  end
 end
