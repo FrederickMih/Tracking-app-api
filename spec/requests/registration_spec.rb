@@ -2,12 +2,12 @@ require 'rails_helper'
 
 RSpec.describe 'Users', type: :request do
   before do
-    post '/registrations', params: { user: { username: 'fred', password: '123456', password_confirmation: '123456' } }
+    post '/registrations', params: { user: { username: 'fred1', password: '123456', password_confirmation: '123456' } }
   end
   describe 'POST /registrations' do
     it 'creates a new user' do
       user = User.last
-      expect(user.username).to eql('fred')
+      expect(user.username).to eql('fred1')
     end
 
     it 'sets the status of created' do
